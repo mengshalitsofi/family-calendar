@@ -1,1 +1,16 @@
-<h3>Family Events</h3>
+<h2>Family Events</h2>
+<% if @events.count == 0%>
+<div>
+    There are no events set up for this family calendar. <br>
+    Get started by adding an event <a href="/events/new">here</a>.    
+</div>
+<% else %>
+<ul>
+    <% @events.each do |event| %>
+        <li><b><%=event.event_time%>: </b> <a href="/events/<%=event.id%>"><%=event.title%></a></li>
+    <% end %>
+</ul>
+<br>
+<h2></h2>
+<a href="/events/new">Add another event</a>
+<%end%>

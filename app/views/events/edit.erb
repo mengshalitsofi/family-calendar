@@ -1,0 +1,27 @@
+<h2>Edit Event</h2>
+
+<form action="/events/<%=@event.id%>" method="post">
+    <table>
+        <tr>
+            <td>Title: </td>
+            <td><input type="text" name="title" value="<%=@event.title%>"></td>
+        </tr>
+        <tr>
+            <td>Day of week: </td>
+            <td><input type="text" name="event_time" value="<%=@event.event_time%>"></td>
+        </tr>
+        <tr>
+            <td>Location: </td>
+            <td><input type="text" name="location" value="<%=@event.location%>"></td>
+        </tr>
+        <tr>
+            <td>Description: </td>
+            <td><textarea name="description"><%=@event.description%></textarea></td>
+        </tr>
+    </table>    
+    <br>
+    <input type="hidden" name="_method" value="PATCH">    
+    <input type="submit">
+</form>
+<br>
+<a href="/events">Cancel</a>

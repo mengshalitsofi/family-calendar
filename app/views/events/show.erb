@@ -1,0 +1,22 @@
+<h2><%=@event.title%></h2>
+
+<table>
+    <tr>
+        <td><b>Day of week: </b></td>
+        <td><%=@event.event_time%></td>
+    </tr>
+    <tr>
+        <td><b>Location: </b></td>
+        <td><%=@event.location%></td>
+    </tr>
+    <tr>
+        <td><b>Created by: </b></td>
+        <td><%="#{@event.user.first_name} #{@event.user.last_name}"%></td>
+    </tr>
+</table> 
+<br>
+<% if @event.user == current_user %>
+<a href="/events/<%=@event.id%>/edit">Edit</a><br>
+<a href="/events/<%=@event.id%>/delete">Delete</a><br>
+<% end %>
+<a href="/events">Back</a>

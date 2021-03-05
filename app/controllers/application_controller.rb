@@ -36,9 +36,5 @@ class ApplicationController < Sinatra::Base
       redirect '/events' unless check_owner(obj)
     end
 
-    def set_event
-      @event = Event.find_by(id: params[:id])
-    end
-
 	end
 end

@@ -5,16 +5,21 @@ class EventsController < ApplicationController
         erb :'events/index'
     end
 
+    post '/events' do
+        event = current_user.events.create(
+            :title => params[:title],
+            :description => params[:description],
+            :event_time => params[:event_time],
+            :location => params[:location]
+        )
+        redirect "/events"
+    end
+
     get '/events/new' do
         erb :'events/new'
     end
 
-    post '/events' do
-        item = current_user.events.create(params[:event])
-        redirect "events/#{event.id}"
-    end
-
-    get '/event/:id' do
+    get '/events/:id' do
         set_event
         if !@event
             redirect '/events'
@@ -33,7 +38,11 @@ class EventsController < ApplicationController
     patch '/events/:id' do
         set_event
         if check_owner(@event)
-            @event.uptade(params[:event])
+            @event.update(
+                :event_time => params[:event_time],
+                :title => params[:title],
+                :location => params[:location]
+            )
         end
         erb :'events/show'
     end
@@ -48,5 +57,7 @@ class EventsController < ApplicationController
         end
     end
 
-
+    def set_event
+        @event = Event.find_by(id: params[:id])
+    end
 end
