@@ -1,11 +1,13 @@
 class EventsController < ApplicationController
 
     get '/events' do
+        redirect_if_not_logged_in
         @events = Event.all
         erb :'events/index'
     end
 
     post '/events' do
+        redirect_if_not_logged_in
         event = current_user.events.create(
             :title => params[:title],
             :description => params[:description],
@@ -16,10 +18,12 @@ class EventsController < ApplicationController
     end
 
     get '/events/new' do
+        redirect_if_not_logged_in
         erb :'events/new'
     end
 
     get '/events/:id' do
+        redirect_if_not_logged_in
         set_event
         if !@event
             redirect '/events'
@@ -28,6 +32,7 @@ class EventsController < ApplicationController
     end
 
     get '/events/:id/edit' do
+        redirect_if_not_logged_in
         set_event
         if !check_owner(@event)
             redirect '/events'
@@ -36,6 +41,7 @@ class EventsController < ApplicationController
     end
 
     patch '/events/:id' do
+        redirect_if_not_logged_in
         set_event
         if check_owner(@event)
             @event.update(
@@ -47,7 +53,8 @@ class EventsController < ApplicationController
         erb :'events/show'
     end
 
-    delete '/events/:id' do
+    get '/events/:id/delete' do
+        redirect_if_not_logged_in
         set_event
         if check_owner(@event)
             @event.delete 

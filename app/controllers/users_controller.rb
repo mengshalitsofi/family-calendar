@@ -9,25 +9,42 @@ class UsersController < ApplicationController
     end
     
       post '/users' do
-        user = User.create(
-            :username => params[:user_name], 
-            :password => params[:password],
-            :first_name => params[:first_name],
-            :last_name => params[:last_name]
-        )
-
-        if user.valid?
-            session[:user_id] = user.id
-    		redirect "/events"
-  		else
-            @errors = user.errors.full_messages
-           
+        @errors = []
+        if params[:user_name] == ""
+            @errors << "User name cannot be empty"
+        end
+        if params[:password] == ""
+            @errors << "Password cannot be empty"
+        end
+        if params[:first_name] == ""
+            @errors << "First name cannot be empty"
+        end
+        if params[:last_name] == ""
+            @errors << "Last name cannot be empty"
+        end
+        if @errors.count > 0
     		erb:'/users/signup'
-  		end
+        else
+            user = User.create(
+                :username => params[:user_name], 
+                :password => params[:password],
+                :first_name => params[:first_name],
+                :last_name => params[:last_name]
+            )
 
+            if user.valid?
+                session[:user_id] = user.id
+                redirect "/events"
+            else
+                @errors = user.errors.full_messages
+            
+                erb:'/users/signup'
+            end
+        end
       end
     
       get '/users/:id' do
+        redirect_if_not_logged_in
         @user = User.find_by(id: params[:id])
         erb :'users/show'
       end
