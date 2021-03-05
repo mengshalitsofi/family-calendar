@@ -15,13 +15,24 @@
   </head>
   <body>
     <div class="wrapper">
-        <header><img src="images/Family-clipart-black-and-white.png" style="width: 100px" class="img-responsive main-image"></header>
-
-      <% if current_user%>
-        <a href="/">All Events</a>
-        <%else%>
-        <a href="/login">Login</a>
-
+        <header>
+          <table style="width: 100%">
+            <tr>
+            <td>
+              <img src="images/Family-clipart-black-and-white.png" style="width: 100px" class="img-responsive main-image">
+            </td>
+            <td style="text-align: right">
+              <% if logged_in?%>
+                Hello, <%= current_user.first_name%> |
+                <a href="/logout">Logout</a>
+                <%else%>
+                <a href="/login">Login</a>
+              <% end %>
+            </td>
+            </tr>
+          </table>
+        </header>
+      <br><br>
         <%= yield %>
 
       <footer class="branding">

@@ -1,0 +1,33 @@
+<h2>Register for Family Calendar</h2>
+
+<% @errors && @errors.each do |m| %>
+    <li style="color: red"><%=m%></li>
+<%end%>
+
+<form action="/users" method="post">
+    <h3>Personal Details</h3>
+    <table>
+        <tr>
+            <td>First Name: </td>
+            <td><input type="text" name="first_name"></td>
+        </tr>
+        <tr>
+            <td>Last Name: </td>
+            <td><input type="text" name="last_name"></td>
+        </tr>
+    </table>    
+    <br>
+    <h3>Login Information</h3>
+    <table>
+        <tr>
+            <td>Username: </td>
+            <td><input type="text" name="user_name"></td>
+        </tr>
+        <tr>
+            <td>Password: </td>
+            <td><input type="password" name="password"></td>
+        </tr>
+    </table>
+    <br>
+    <input type="submit">
+</form>

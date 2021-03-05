@@ -5,9 +5,11 @@ class ApplicationController < Sinatra::Base
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
+    set :session_secret, 'secreterdfglihjl!@#$%Rgfvd3254r2' # on purpose
     enable :sessions
-    set :sessions_secret, 'secret'
   end
+
+  register Sinatra::Flash
 
   get "/" do
     erb :index
@@ -22,20 +24,20 @@ class ApplicationController < Sinatra::Base
 			User.find_by(id: session[:user_id])
 		end
 
-    def redirect_if_not_logged_in
-       redirect '/login' unless current_user
-    end
+    #def redirect_if_not_logged_in
+    #   redirect '/login' unless current_user
+    #end
 
     def check_owner(obj)
-      obj.user == current_user
+      obj && obj.user == current_user
     end
 
     def redirect_if_not_owner(obj)
-      redirect
+      redirect '/events' unless check_owner(obj)
     end
 
     def set_event
-
+      @event = Event.find_by(id: params[:id])
     end
 
 	end
