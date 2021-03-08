@@ -8,11 +8,11 @@ class EventsController < ApplicationController
 
     post '/events' do
         redirect_if_not_logged_in
-        event = current_user.events.create(
-            :title => params[:title],
-            :description => params[:description],
-            :event_time => params[:event_time],
-            :location => params[:location]
+        event = current_user.events.create(params[:event]
+          #  :title => params[:title],
+          #  :description => params[:description],
+          #  :event_time => params[:event_time],
+          #  :location => params[:location]
         )
         redirect "/events"
     end
@@ -34,9 +34,10 @@ class EventsController < ApplicationController
     get '/events/:id/edit' do
         redirect_if_not_logged_in
         set_event
-        if !check_owner(@event)
-            redirect '/events'
-        end
+        redirect_if_not_owner(@event)
+        #if !check_owner(@event)
+        #    redirect '/events'
+        #end
         erb :'events/edit'
     end
 
@@ -44,16 +45,12 @@ class EventsController < ApplicationController
         redirect_if_not_logged_in
         set_event
         if check_owner(@event)
-            @event.update(
-                :event_time => params[:event_time],
-                :title => params[:title],
-                :location => params[:location]
-            )
+            @event.update(params[:event])
         end
         erb :'events/show'
     end
 
-    get '/events/:id/delete' do
+    delete '/events/:id' do
         redirect_if_not_logged_in
         set_event
         if check_owner(@event)

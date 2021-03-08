@@ -10,6 +10,10 @@
         <td><%=@event.location%></td>
     </tr>
     <tr>
+        <td><b>Description: </b></td>
+        <td><%=@event.description%></td>
+    </tr>
+    <tr>
         <td><b>Created by: </b></td>
         <td><%="#{@event.user.first_name} #{@event.user.last_name}"%></td>
     </tr>

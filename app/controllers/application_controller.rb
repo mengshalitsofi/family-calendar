@@ -9,7 +9,7 @@ class ApplicationController < Sinatra::Base
     enable :sessions
   end
 
-  register Sinatra::Flash
+  #register Sinatra::Flash
 
   get "/" do
     erb :index
@@ -25,7 +25,7 @@ class ApplicationController < Sinatra::Base
 		end
 
     def redirect_if_not_logged_in
-       redirect '/login' unless current_user
+       redirect '/' unless current_user
     end
 
     def check_owner(obj)
@@ -33,6 +33,9 @@ class ApplicationController < Sinatra::Base
     end
 
     def redirect_if_not_owner(obj)
+      # if !check_owner(obj)
+      #flash[:message] = "This is not your items!"
+      #redirect '/items'
       redirect '/events' unless check_owner(obj)
     end
 

@@ -1,0 +1,8 @@
+<h2>All Users</h2>
+<% @users.each do |u|%>
+<b>First Name: </b><%= u.first_name%>
+<b>Last Name: </b><%= u.last_name%>
+<b>Username: </b><%= u.username%>
+<br><br>
+<% end %>
+<a href="/events">Back</a>
