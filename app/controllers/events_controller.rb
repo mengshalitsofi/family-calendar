@@ -50,7 +50,7 @@ class EventsController < ApplicationController
         erb :'events/show'
     end
 
-    delete '/events/:id' do
+    get '/events/:id/delete' do # on purpose, so I could use a link and not a button
         redirect_if_not_logged_in
         set_event
         if check_owner(@event)
