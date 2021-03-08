@@ -24,6 +24,7 @@
             <td style="text-align: right">
               <% if logged_in?%>
                 Hello, <%= current_user.first_name%> |
+                <a href="/users">Users</a> |
                 <a href="/logout">Logout</a>
                 <%else%>
                 <a href="/login">Login</a>
