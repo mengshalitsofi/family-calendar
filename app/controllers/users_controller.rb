@@ -15,16 +15,16 @@ class UsersController < ApplicationController
     
       post '/users' do
         @errors = []
-        if params[:user_name] == ""
+        if params[:user][:username] == ""
             @errors << "User name cannot be empty"
         end
-        if params[:password] == ""
+        if params[:user][:password] == ""
             @errors << "Password cannot be empty"
         end
-        if params[:first_name] == ""
+        if params[:user][:first_name] == ""
             @errors << "First name cannot be empty"
         end
-        if params[:last_name] == ""
+        if params[:user][:last_name] == ""
             @errors << "Last name cannot be empty"
         end
         if @errors.count > 0
@@ -36,7 +36,6 @@ class UsersController < ApplicationController
                 session[:user_id] = user.id
                 redirect "/events"
             else
-              #flash[:message] = user.erros.full_message
                 @errors = user.errors.full_messages
             
                 erb:'/users/signup'
@@ -62,7 +61,6 @@ class UsersController < ApplicationController
 
         if user && user.authenticate(params[:password])
           session[:user_id] = user.id
-          #flash[:massage] = "login successful!"
           redirect "/events"
         else
           @error = "Incorrect username/password. Please try again."

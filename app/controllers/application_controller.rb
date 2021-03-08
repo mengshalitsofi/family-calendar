@@ -4,11 +4,10 @@ class ApplicationController < Sinatra::Base
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
-    set :session_secret, 'secreterdfglihjl!@#$%Rgfvd3254r2' # on purpose
+    set :session_secret, 'secreterdfglihjl!@#$%Rgfvd3254r2' 
     enable :sessions
   end
 
-  #register Sinatra::Flash
 
   get "/" do
     erb :index
@@ -32,9 +31,6 @@ class ApplicationController < Sinatra::Base
     end
 
     def redirect_if_not_owner(obj)
-      # if !check_owner(obj)
-      #flash[:message] = "This is not your items!"
-      #redirect '/items'
       redirect '/events' unless check_owner(obj)
     end
 

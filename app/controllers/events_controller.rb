@@ -6,6 +6,11 @@ class EventsController < ApplicationController
         erb :'events/index'
     end
 
+    get '/events/new' do
+        redirect_if_not_logged_in
+        erb :'events/new'
+    end
+
     post '/events' do
         redirect_if_not_logged_in
         event = current_user.events.create(params[:event]
@@ -15,11 +20,6 @@ class EventsController < ApplicationController
           #  :location => params[:location]
         )
         redirect "/events"
-    end
-
-    get '/events/new' do
-        redirect_if_not_logged_in
-        erb :'events/new'
     end
 
     get '/events/:id' do
