@@ -7,7 +7,11 @@
 <% else %>
 <ul>
     <% @events.each do |event| %>
-        <li><b><%=event.event_time%>: </b> <a href="/events/<%=event.id%>"><%=event.title%></a></li>
+        <li><b>
+        <% if event.user == current_user %> 
+        *
+        <% end %>
+        <%=event.event_time%>: </b> <a href="/events/<%=event.id%>"><%=event.title%></a></li>
     <% end %>
 </ul>
 <br>
