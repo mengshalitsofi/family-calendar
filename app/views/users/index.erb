@@ -1,6 +1,6 @@
 <h2>All Users</h2>
 <% @users.each do |u|%>
-<b>First Name: </b><%= u.first_name%>
+<b>First Name: </b><a href="/users/<%= u.id %>"><%= u.first_name%></a>
 <b>Last Name: </b><%= u.last_name%>
 <b>Username: </b><%= u.username%>
 <br><br>
